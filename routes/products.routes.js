@@ -3,6 +3,10 @@ const route = Router();
 const {
   getAllProducts,
   createProduct,
+  deleteProd,
+  getByIdParams,
+  updateById,
+  deleteProdParams
 } = require("../controllers/productsController");
 const { body } = require("express-validator");
 
@@ -20,5 +24,10 @@ route.post(
   body("stock").isNumeric(),
   createProduct
 );
+
+route.delete("/", deleteProd);
+route.delete("/:id",deleteProdParams)
+route.get("/:ProdId", getByIdParams);
+route.patch("/:id", updateById);
 
 module.exports = route;
