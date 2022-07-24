@@ -3,7 +3,8 @@ const { Schema, model } = require('mongoose')
 const userShema = new Schema({
   email: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   password: {
@@ -37,7 +38,8 @@ const userShema = new Schema({
 
   direction: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
 
   dateCreated: {
