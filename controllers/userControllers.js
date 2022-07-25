@@ -57,8 +57,16 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const { id } = req.params
     const body = req.body
+    const { password } = req.body
 
-    const updateUserById = await UserModel.findByIdAndUpdate(id, body, {new: true})
+    const errors = validationResult(req)
+   if (!errors.isEmpty()) {
+      return res.status(400).json({errors: errors.array()})
+   }
+   const salt = bcrypt.genSaltSync(10)
+   req.body.password = bcrypt.hashSync(password, salt)
+    
+   const updateUserById = await UserModel.findByIdAndUpdate(id, body, {new: true})
     if (updateUserById !== null) {
       res.status(200).json({mesg:"usuario actualizado", updateUserById})
     } else {
