@@ -20,9 +20,7 @@ createUser)
 
 route.delete('/:id', deleteUser)
 
-route.put('/:id',
-body("email").not().isEmpty().withMessage("el campo mail es requerido")
-.isEmail().withMessage("ingrese un mail Valido"),
+route.patch('/:id',
 body("password").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
 .withMessage("minimo 8 caracteres, una letra mayuscula, un signo especial y minimo un digito"),
 body("nameCompleted").isLength(5).withMessage("minimo 5 caracteres"),

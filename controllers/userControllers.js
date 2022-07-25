@@ -57,7 +57,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const { id } = req.params
     const body = req.body
-    const { password } = req.body
+    const { password} = req.body
 
     const errors = validationResult(req)
    if (!errors.isEmpty()) {
