@@ -24,7 +24,7 @@ route.post(
     .withMessage("ingrese un mail Valido")
     .custom(emailUnique),
   body("password")
-    .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
+    .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$/)
     .withMessage(
       "minimo 8 caracteres, una letra mayuscula, un signo especial y minimo un digito"
     ),

@@ -25,7 +25,7 @@ const login = async (req, res) => {
       res.status(401).json("Verifica los datos");
     }
   } else {
-    return res.status(404).json("Usuario no encontrado");
+    return res.status(404).json("Usuario o contraseña incorrecta");
   }
 };
 

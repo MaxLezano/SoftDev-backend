@@ -12,8 +12,8 @@ route.post(
     .isEmail()
     .withMessage("ingrese un mail Valido"),
   body("password").matches(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-  ),
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$/
+  ).withMessage("password incorrecto"),
   login
 );
 
