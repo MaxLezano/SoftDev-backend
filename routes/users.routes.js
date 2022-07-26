@@ -42,6 +42,17 @@ route.post(
 
 route.delete("/:id", deleteUser);
 
-route.put("/:id", updateUser);
+
+route.patch('/:id',
+body("password").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
+.withMessage("minimo 8 caracteres, una letra mayuscula, un signo especial y minimo un digito"),
+body("nameCompleted").isLength(5).withMessage("minimo 5 caracteres"),
+body("numberContact").matches(/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/)
+.withMessage("ingrese un numero de telefono valido"),
+body("codigoPostal").matches(/^[0-9]{4}(?:-[0-9]{4})?$/).withMessage("ingrese un codigo postal"), 
+updateUser)
+
+
+
 
 module.exports = route;
