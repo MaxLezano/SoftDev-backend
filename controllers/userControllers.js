@@ -1,5 +1,5 @@
 const UserModel = require('../models/userModel')
-const { validationResult } = require('express-validator')
+const { validationResult, check } = require('express-validator')
 const bcrypt = require('bcrypt')
 
 
@@ -78,7 +78,8 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
    const { id } = req.params
-   const getById = await UserModel.findByIdAndDelete(id)
+   
+     const getById = await UserModel.findByIdAndDelete(id)
     
       if (getById !== null) {
          res.status(200).json("usuario eliminado con exito")
