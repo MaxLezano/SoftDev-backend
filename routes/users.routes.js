@@ -1,18 +1,15 @@
 const { Router } = require("express");
 const { getUsers, createUser, deleteUser, getById, updateUser,
 } = require("../controllers/userControllers");
+const { body } = require("express-validator");
 
-const { body, check } = require("express-validator");
 const { emailUnique } = require("../helpers/validation");
 const route = Router();
 const { jwtValidator } = require("../middlewares/jwtValidation");
 const { validateMongoId } = require('../middlewares/validateMongoId')
 
 route.get("/", jwtValidator ,getUsers);
-route.get("/:id",[
-  check('id'),
-  validateMongoId
-], getById);
+route.get("/:id",[validateMongoId], getById);
 
 route.post("/",
   body("email").not().isEmpty().withMessage("el campo mail es requerido").isEmail()
@@ -30,14 +27,9 @@ route.post("/",
   createUser
 );
 
-route.delete("/:id",[
-  check('id'),
-  validateMongoId
-], deleteUser);
-
+route.delete("/:id",[validateMongoId], deleteUser);
 
 route.patch('/:id',[
-  check('id'),
   validateMongoId
 ],body("password").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
 .withMessage("minimo 8 caracteres, una letra mayuscula, un signo especial y minimo un digito"),
