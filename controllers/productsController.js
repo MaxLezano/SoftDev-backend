@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 
 
 const getAllProducts = async (req, res) => {
-   const {limit = 3, from = 0} = req.query
+   const {limit = 0, from = 0} = req.query
    try {
     const products = await ProductModel.find({}).skip(from).limit(limit);
     res.status(200).json(products);
