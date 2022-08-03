@@ -13,8 +13,8 @@ const getAllProducts = async (req, res) => {
 };
 
 const getByIdParams = async (req, res) => {
-  const { ProdId } = req.params;
-  const getById = await ProductModel.findById(ProdId);
+  const { id } = req.params;
+  const getById = await ProductModel.findById(id);
   if (getById !== null) {
     res.status(200).json(getById);
   } else {
