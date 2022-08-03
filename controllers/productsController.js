@@ -1,8 +1,11 @@
 const ProductModel = require("../models/productsModel");
 const { validationResult } = require("express-validator");
+
+
 const getAllProducts = async (req, res) => {
-  try {
-    const products = await ProductModel.find({});
+   const {limit = 0, from = 0} = req.query
+   try {
+    const products = await ProductModel.find({}).skip(from).limit(limit);
     res.status(200).json(products);
   } catch (error) {
     res.status(404).json(error);
