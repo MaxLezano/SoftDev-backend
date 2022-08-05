@@ -45,7 +45,12 @@ const userShema = new Schema({
   dateCreated: {
     type : Date,
     default: Date.now()
-  }
+  },
+
+  favoritos : [],
+
+  carrito: []
+  
 })
 
 module.exports = model('user', userShema)
