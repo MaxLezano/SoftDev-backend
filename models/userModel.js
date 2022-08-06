@@ -47,9 +47,9 @@ const userShema = new Schema({
     default: Date.now()
   },
 
-  favoritos : [],
+  favorite : [],
 
-  carrito: []
+  cart: []
   
 })
 

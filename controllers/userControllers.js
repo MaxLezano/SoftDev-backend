@@ -24,7 +24,7 @@ const getById = async (req, res) => {
 
 };
 
-const addFavorit = async (req, res) => {
+const addFavorite = async (req, res) => {
 const { id } = req.params
 const body = req.body
 const addFavUser = await UserModel.findByIdAndUpdate(id, body, { new: true })
@@ -115,4 +115,4 @@ const deleteUser = async (req, res) => {
 };
 
 
-module.exports = { getUsers, createUser, deleteUser, getById, updateUser, addFavorit, addCart }
+module.exports = { getUsers, createUser, deleteUser, getById, updateUser, addFavorite, addCart }
