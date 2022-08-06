@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { getUsers, createUser, deleteUser, getById, updateUser,
-} = require("../controllers/userControllers");
+addFavorite, addCart} = require("../controllers/userControllers");
 const { body } = require("express-validator");
 
 const { emailUnique } = require("../helpers/validation");
@@ -8,8 +8,9 @@ const route = Router();
 const { jwtValidator } = require("../middlewares/jwtValidation");
 const { validateMongoId } = require('../middlewares/validateMongoId')
 
-route.get("/", jwtValidator ,getUsers);
+route.get("/",jwtValidator,getUsers);
 route.get("/:id",[validateMongoId], getById);
+
 
 route.post("/",
   body("email").not().isEmpty().withMessage("el campo mail es requerido").isEmail()
@@ -28,6 +29,8 @@ route.post("/",
 );
 
 route.delete("/:id",[validateMongoId], deleteUser);
+route.patch('/favoritos/:id', [ validateMongoId ], addFavorite)
+route.patch('/carrito/:id', [ validateMongoId ], addCart)
 
 route.patch('/:id',[
   validateMongoId

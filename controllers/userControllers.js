@@ -24,6 +24,31 @@ const getById = async (req, res) => {
 
 };
 
+const addFavorite = async (req, res) => {
+const { id } = req.params
+const body = req.body
+const addFavUser = await UserModel.findByIdAndUpdate(id, body, { new: true })
+
+if (addFavUser !== null) {
+   res.status(201).json({msg:"añadido a favoritos", addFavUser})
+ } else {
+   res.status(404).json("usuario no encontrado")
+ }
+
+}
+const addCart = async (req, res) => {
+   const { id } = req.params
+   const body = req.body
+   const addCartUser = await UserModel.findByIdAndUpdate(id, body, { new: true })
+  
+   if (addCartUser !== null) {
+      res.status(201).json({msg:"añadido al Carrito", addCartUser})
+    } else {
+      res.status(404).json("usuario no encontrado")
+    }
+   
+   }
+
 const createUser = async (req, res) => {
    const {email, password, isAproved, nameCompleted, numberContact, codigoPostal, direction, dateCreated} = req.body
 
@@ -90,4 +115,4 @@ const deleteUser = async (req, res) => {
 };
 
 
-module.exports = { getUsers, createUser, deleteUser, getById, updateUser }
+module.exports = { getUsers, createUser, deleteUser, getById, updateUser, addFavorite, addCart }
