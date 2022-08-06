@@ -23,7 +23,7 @@ const getByIdParams = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  const { name, price, category, description, img, stock, isAprobed } = req.body;
+  const { name, price, category, description, img, stock, isAproved } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -36,7 +36,7 @@ const createProduct = async (req, res) => {
       description : description,
       img: img,
       stock: stock,
-      isAprobed: isAprobed,
+      isAproved: isAproved,
     });
     const newProd = await product.save();
     res.status(201).json({ msg: "Producto creado con exito", newProd });

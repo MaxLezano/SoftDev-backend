@@ -10,7 +10,7 @@ const productSchema = new Schema({
   description : {type : String, trim : true},
   img: { type: String, required : true, default: "https://img.freepik.com/vector-premium/icono-marco-fotos-foto-vacia-blanco-vector-sobre-fondo-transparente-aislado-eps-10_399089-1290.jpg" },
   stock: { type: Number, required: true },
-  IsAproved: { type: Boolean, default: false },
+  isAproved: { type: Boolean, default: false },
 });
 
 module.exports = model("product", productSchema);
