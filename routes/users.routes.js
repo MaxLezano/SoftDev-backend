@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { getUsers, createUser, deleteUser, getById, updateUser,
-addFavorite, addCart} = require("../controllers/userControllers");
+addFavorite, addCart } = require("../controllers/userControllers");
 const { body } = require("express-validator");
 
 const { emailUnique } = require("../helpers/validation");
@@ -11,41 +11,20 @@ const { validateMongoId } = require('../middlewares/validateMongoId')
 route.get("/",jwtValidator,getUsers);
 route.get("/:id",[validateMongoId], getById);
 
-
 route.post("/",
-  body("email").not().isEmpty().withMessage("el campo mail es requerido").isEmail()
-  .withMessage("ingrese un mail Valido").custom(emailUnique),
+  body("name").not().isEmpty(),
+  body("email").not().isEmpty().isEmail()
+  .withMessage("ingrese un correo válido").custom(emailUnique),
   
-  body("password").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
-  .withMessage("minimo 8 caracteres, una letra mayuscula, un signo especial y minimo un digito"),
-  
-  body("nameCompleted").isLength(5).withMessage("minimo 5 caracteres"),
-  
-  body("numberContact").matches(/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/)
-  .withMessage("ingrese un numero de telefono valido"),
-  
-  body("codigoPostal").matches(/^[0-9]{4}(?:-[0-9]{4})?$/).withMessage("ingrese un codigo postal"),
+  body("password").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$/)
+  .withMessage("mínimo 8 caracteres, una letra mayúscula, un signo especial y un dígito"),
   createUser
 );
 
 route.delete("/:id",[validateMongoId], deleteUser);
-route.patch('/favoritos/:id', [ validateMongoId ], addFavorite)
-route.patch('/carrito/:id', [ validateMongoId ], addCart)
+route.patch('/favorites/:id', [ validateMongoId ], addFavorite);
+route.patch('/carts/:id', [ validateMongoId ], addCart);
 
-route.patch('/:id',[
-  validateMongoId
-],body("password").matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/)
-.withMessage("minimo 8 caracteres, una letra mayuscula, un signo especial y minimo un digito"),
-
-body("nameCompleted").isLength(5).withMessage("minimo 5 caracteres"),
-
-body("numberContact").matches(/^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/)
-.withMessage("ingrese un numero de telefono valido"),
-
-body("codigoPostal").matches(/^[0-9]{4}(?:-[0-9]{4})?$/).withMessage("ingrese un codigo postal"), 
-updateUser)
-
-
-
+route.patch('/:id', [validateMongoId], updateUser);
 
 module.exports = route;
