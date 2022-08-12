@@ -6,9 +6,10 @@ const productSchema = new Schema({
     type: Number,
     required: [true, `El precio es requerido`], 
   },
-  category : {type: String, required: true ,trim: true},
+  category : {type: String, required: true, trim: true},
   description : {type : String, trim : true},
-  img: { type: String, required : true, default: "https://img.freepik.com/vector-premium/icono-marco-fotos-foto-vacia-blanco-vector-sobre-fondo-transparente-aislado-eps-10_399089-1290.jpg" },
+  img: { type: String, required : true, default: "https://cbff-teco-strapi-cms-pro.s3.amazonaws.com/Moto_G200_Morado_Frente_min_8f360be1e8.png" },
+  imgFavorite: { type: String, default: "https://cbff-teco-strapi-cms-pro.s3.amazonaws.com/Moto_G200_Morado_Frente_min_8f360be1e8.png" },
   stock: { type: Number, required: true },
   isAproved: { type: Boolean, default: false },
 });

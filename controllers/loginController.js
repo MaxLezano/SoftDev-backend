@@ -5,7 +5,7 @@ const {validationResult} = require('express-validator')
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const errors = validationResult(req)
+  const errors = validationResult(req);
   const searchEmail = await UserModel.findOne({ email });
   if (!errors.isEmpty()) {
     return res.status(400).json({errors: errors.array()})
@@ -17,18 +17,15 @@ const login = async (req, res) => {
         id: searchEmail._id,
         email: searchEmail.email,
       };
-      const token = jwt.sign(payload, process.env.SECRET, {
-        expiresIn: 600,
-      });
-      res.status(200).json({ msg: "login exitoso", token: token });
+      const id = searchEmail._id;
+      const token = jwt.sign(payload, process.env.SECRET);
+      res.status(200).json({ msg: "Ingreso exitoso", token, id});
     } else {
-      res.status(401).json("Verifica los datos");
+      res.status(401).json("contraseña incorrecta");
     }
   } else {
-    return res.status(404).json("Usuario o contraseña incorrecta");
+    return res.status(404).json("verificar los datos");
   }
 };
 
-module.exports = {
-  login,
-};
+module.exports = { login };
