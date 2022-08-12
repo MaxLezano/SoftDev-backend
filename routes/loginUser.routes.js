@@ -5,15 +5,8 @@ const { body } = require("express-validator");
 
 route.post(
   "/",
-  body("email")
-    .not()
-    .isEmpty()
-    .withMessage("el campo mail es requerido")
-    .isEmail()
-    .withMessage("ingrese un mail Valido"),
-  body("password").matches(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{8,}$/
-  ).withMessage("password incorrecto"),
+  body("email").not().isEmpty().isEmail().withMessage("ingrese un correo válido"),
+  body("password").not().isEmpty().withMessage("la contraseña es incorrecta"),
   login
 );
 

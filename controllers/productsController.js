@@ -3,10 +3,11 @@ const { validationResult } = require("express-validator");
 
 
 const getAllProducts = async (req, res) => {
-   const {limit = 0, from = 0} = req.query
+   const {limit = 15, page = 1} = req.query
    try {
-    const products = await ProductModel.find({}).skip(from).limit(limit);
-    res.status(200).json(products);
+    const products = await ProductModel.find({}).skip((limit * page) - limit).limit(limit);
+    const total = await ProductModel.count()
+    res.status(200).json({total,"cantidad por pagina": limit, products});
   } catch (error) {
     res.status(404).json(error);
   }
